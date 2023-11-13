@@ -6,7 +6,8 @@ const { jwt_secret } = require("../config/keys");
 const UserController = {
   async register(req, res) {
     try {
-      const user = await User.create(req.body);
+      const password = bcrypt.hashSync(req.body.password, 10);
+      const user = await User.create({...req.body, password});
       res.status(201).send({ message: "User registered succesfully", user });
     } catch (error) {
       console.error(error);
@@ -27,7 +28,9 @@ const UserController = {
       res.send({ message: "Welcome " + user.name, token });
     } catch (error) {
       console.error(error);
-      res.status(500).send({ msg: "Unexpected error doing the login", error });
+      res
+      .status(500)
+      .send({ msg: "Unexpected error doing the login", error });
     }
   },
   async delete(req, res) {
@@ -35,10 +38,12 @@ const UserController = {
       const user = await User.findByIdAndDelete({
         _id: req.params._id,
       });
-      res.status(200).send("User deleted succesfully")
+      res.status(200).send("User deleted succesfully");
     } catch (error) {
-        console.error(error)
-        res.status(500).send({msg: "Unexpected error deleting the user", error})
+      console.error(error);
+      res
+        .status(500)
+        .send({ msg: "Unexpected error deleting the user", error });
     }
   },
 };
