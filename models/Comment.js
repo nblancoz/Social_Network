@@ -5,11 +5,7 @@ const CommentSchema = new mongoose.Schema(
     title: {
       type: String,
     },
-    email: {
-      type: String,
-      required: true,
-    },
-    password: {
+    body: {
       type: String,
       required: true,
     },

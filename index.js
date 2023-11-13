@@ -6,6 +6,7 @@ const { dbConnection } = require("./config/config");
 app.use(express.json());
 
 app.use("/users", require("./routes/users.js"));
+app.use("/comments", require("./routes/comments.js"));
 
 dbConnection();
 
