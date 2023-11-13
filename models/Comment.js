@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 
-const UserSchema = new mongoose.Schema(
+const CommentSchema = new mongoose.Schema(
   {
-    name: {
+    title: {
       type: String,
-      required: true,
     },
     email: {
       type: String,
@@ -14,11 +13,10 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    tokens: [],
   },
   { timestamps: true }
 );
 
-const User = mongoose.model("User", UserSchema);
+const Comment = mongoose.model("Comment", CommentSchema);
 
-module.exports = User;
+module.exports = Comment;
