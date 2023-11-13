@@ -29,6 +29,7 @@ const UserController = {
       res.send({ message: "Bienvenid@ " + user.name, token });
     } catch (error) {
       console.error(error);
+      console.log("Prueba")
     }
   },
 };
