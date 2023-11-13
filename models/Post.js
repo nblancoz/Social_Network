@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
+const ObjectId = mongoose.SchemaTypes.ObjectId;
 
 const PostSchema = new mongoose.Schema(
   {
     body: String,
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: ObjectId,
       ref: "User",
     },
     datePosted: Date,

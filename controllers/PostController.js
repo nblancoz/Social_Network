@@ -5,8 +5,7 @@ const PostController = {
           try {
             const post = await Post.create({
               ...req.body,
-            //   status: "pending",
-            //   userId: req.user._id,
+              // userId: req.user._id, no funciona
             });
             res.status(201).send(post);
           } catch (error) {
