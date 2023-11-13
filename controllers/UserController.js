@@ -7,7 +7,7 @@ const UserController = {
   async register(req, res) {
     try {
       const password = bcrypt.hashSync(req.body.password, 10);
-      const user = await User.create({...req.body, password});
+      const user = await User.create({ ...req.body, password });
       res.status(201).send({ message: "User registered succesfully", user });
     } catch (error) {
       console.error(error);
@@ -28,14 +28,25 @@ const UserController = {
       res.send({ message: "Welcome " + user.name, token });
     } catch (error) {
       console.error(error);
+      res.status(500).send({ msg: "Unexpected error doing the login", error });
+    }
+  },
+  async logout(req, res) {
+    try {
+      const user = await User.findByIdAndUpdate(req.params._id, {
+        $pull: { tokens: req.headers.authorization },
+      });
+      res.send({ message: "See you soon " + user.name });
+    } catch (error) {
+      console.error(error);
       res
-      .status(500)
-      .send({ msg: "Unexpected error doing the login", error });
+        .status(500)
+        .send({ message: "Unexpected error doing the logout", error });
     }
   },
   async delete(req, res) {
     try {
-      const user = await User.findByIdAndDelete({
+      await User.findByIdAndDelete({
         _id: req.params._id,
       });
       res.status(200).send("User deleted succesfully");
