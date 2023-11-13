@@ -1,16 +1,19 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { jwt_secret } = require("../config/keys")
+const { jwt_secret } = require("../config/keys");
 
 const UserController = {
   async register(req, res) {
     try {
-      const user = await User.create(req.body);
+      const password = bcrypt.hashSync(req.body.password, 10);
+      const user = await User.create({ ...req.body, password });
       res.status(201).send({ message: "User registered succesfully", user });
     } catch (error) {
       console.error(error);
-      res.status(500).send({msg: "Unexpected error doing the registration", error})
+      res
+        .status(500)
+        .send({ msg: "Unexpected error doing the registration", error });
     }
   },
   async login(req, res) {
@@ -25,7 +28,33 @@ const UserController = {
       res.send({ message: "Welcome " + user.name, token });
     } catch (error) {
       console.error(error);
-      res.status(500).send({msg: "Unexpected error doing the login", error})
+      res.status(500).send({ msg: "Unexpected error doing the login", error });
+    }
+  },
+  async logout(req, res) {
+    try {
+      const user = await User.findByIdAndUpdate(req.params._id, {
+        $pull: { tokens: req.headers.authorization },
+      });
+      res.send({ message: "See you soon " + user.name });
+    } catch (error) {
+      console.error(error);
+      res
+        .status(500)
+        .send({ message: "Unexpected error doing the logout", error });
+    }
+  },
+  async delete(req, res) {
+    try {
+      await User.findByIdAndDelete({
+        _id: req.params._id,
+      });
+      res.status(200).send("User deleted succesfully");
+    } catch (error) {
+      console.error(error);
+      res
+        .status(500)
+        .send({ msg: "Unexpected error deleting the user", error });
     }
   },
 };
