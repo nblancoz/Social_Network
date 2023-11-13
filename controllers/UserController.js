@@ -44,6 +44,17 @@ const UserController = {
         .send({ message: "Unexpected error doing the logout", error });
     }
   },
+  async getAll(req, res) {
+    try {
+      const users = await User.find();
+      res.send(users);
+    } catch (error) {
+      console.error(error);
+      res
+        .status(500)
+        .send({ msg: "Unexpected error showing the users", error });
+    }
+  },
   async delete(req, res) {
     try {
       await User.findByIdAndDelete({
