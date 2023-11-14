@@ -5,11 +5,11 @@ const PostSchema = new mongoose.Schema(
   {
     name:{
       type: String,
-      require: true
+      required: true
     },
     body:{
       type: String,
-      require: true
+      required: true
     },
     userId: {
       type: ObjectId,
