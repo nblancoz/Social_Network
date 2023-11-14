@@ -7,6 +7,7 @@ const PostController = {
       res.status(201).send(post);
     } catch (error) {
       console.error(error);
+      res.status(500).send({msg: "Unexpected error creating the post", error})
     }
   },
   async update(req, res) {
@@ -18,9 +19,10 @@ const PostController = {
           new: true,
         }
       );
-      res.send({ message: "Post successfully updated", post });
+      res.send({ message: "Post updated successfully", post });
     } catch (error) {
       console.error(error);
+      res.status(500).send({msg: "Unexpected error updating the post", error})
     }
   },
   async delete(req, res) {
@@ -31,7 +33,7 @@ const PostController = {
       console.error(error);
       res
         .status(500)
-        .send({ message: "There was a problem trying to remove the post" });
+        .send({ message: "Unexpected error deleting the post" });
     }
   },
   async getPostsByName(req, res) {
@@ -41,33 +43,41 @@ const PostController = {
           $search: req.params.name,
         },
       });
-
+      if (posts.length < 1) {
+        res.status(404).send("Post not found")
+      }
       res.send(posts);
     } catch (error) {
       console.log(error);
+      res
+        .status(500)
+        .send({ message: "Unexpected error looking for the post" });
     }
   },
   async getById(req, res) {
     try {
       const post = await Post.findById(req.params._id);
+      if (post.length < 1) {
+        res.status(404).send("Post not found")
+      }
       res.send(post);
     } catch (error) {
       console.error(error);
+      res
+        .status(500)
+        .send({ message: "Unexpected error looking for the post" });
     }
   },
   async getAll(req, res) {
     try {
       const { page = 1, limit = 10 } = req.query;
-
       const posts = await Post.find()
-
         .limit(limit)
-
         .skip((page - 1) * limit);
-
       res.send(posts);
     } catch (error) {
       console.error(error);
+      res.status(500).send({msg: "Unexpected error looking for the post", error})
     }
   },
 };
