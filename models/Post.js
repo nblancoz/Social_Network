@@ -3,7 +3,14 @@ const ObjectId = mongoose.SchemaTypes.ObjectId;
 
 const PostSchema = new mongoose.Schema(
   {
-    body: String,
+    name:{
+      type: String,
+      require: true
+    },
+    body:{
+      type: String,
+      require: true
+    },
     userId: {
       type: ObjectId,
       ref: "User",

@@ -34,6 +34,18 @@ const PostController = {
         .send({ message: "There was a problem trying to remove the post" });
     }
   },
-};
+  async getPostsByName(req, res) {
+    try {
+      const posts = await Post.find({
+        $text: {
+          $search: req.params.name,
+        },
+      });
 
+      res.send(posts);
+    } catch (error) {
+      console.log(error);
+    }
+  },
+}
 module.exports = PostController;
