@@ -23,6 +23,17 @@ const PostController = {
       console.error(error);
     }
   },
+  async delete(req, res) {
+    try {
+      const post = await Post.findByIdAndDelete(req.params._id);
+      res.send({ message: "Post deleted", post });
+    } catch (error) {
+      console.error(error);
+      res
+        .status(500)
+        .send({ message: "There was a problem trying to remove the post" });
+    }
+  },
 };
 
 module.exports = PostController;
