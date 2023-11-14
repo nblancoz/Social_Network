@@ -12,6 +12,15 @@ const CommentController = {
         .send({ msg: "Unexpected error creating the comment", error });
     }
   },
+  async getAll(req, res) {
+    try {
+      const comments = await Comment.find()
+      res.send(comments)
+    } catch (error) {
+      console.error(error)
+      res.status(500).send({msg: "Unexpected error looking for the comments", error})
+    }
+  }
 };
 
 module.exports = CommentController;
