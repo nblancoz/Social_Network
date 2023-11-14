@@ -4,16 +4,19 @@ const UserSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: true,
+      required: [true, "Por favor rellena tu nombre"],
     },
     email: {
       type: String,
-      required: true,
+      match: [/.+\@.+\..+/, "Este correo no es válido"],
+      unique: true,
+      required: [true, "Por favor rellena tu correo"],
     },
     password: {
       type: String,
-      required: true,
+      required: [true, "Por favor rellena tu contraseña"],
     },
+    role: String,
     tokens: [],
   },
   { timestamps: true }

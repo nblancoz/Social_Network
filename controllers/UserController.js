@@ -8,6 +8,7 @@ const UserController = {
     try {
       const password = bcrypt.hashSync(req.body.password, 10);
       const user = await User.create({ ...req.body, password });
+      user.role = "user"
       res.status(201).send({ message: "User registered succesfully", user });
     } catch (error) {
       console.error(error);
