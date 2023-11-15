@@ -14,13 +14,24 @@ const CommentController = {
   },
   async getAll(req, res) {
     try {
-      const comments = await Comment.find()
-      res.send(comments)
+      const comments = await Comment.find();
+      res.send(comments);
     } catch (error) {
-      console.error(error)
-      res.status(500).send({msg: "Unexpected error looking for the comments", error})
+      console.error(error);
+      res
+        .status(500)
+        .send({ msg: "Unexpected error looking for the comments", error });
     }
-  }
+  },
+  async delete(req, res) {
+    try {
+      await Comment.findByIdAndDelete(req.params._id);
+      res.send("Comment deleted successfully");
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ msg: "Unexpected error deleting the comment" });
+    }
+  },
 };
 
 module.exports = CommentController;
