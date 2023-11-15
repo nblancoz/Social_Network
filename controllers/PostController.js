@@ -7,18 +7,20 @@ const PostController = {
       const post = await Post.create({
         ...req.body,
         userId: req.user._id,
-      })
-await User.findByIdAndUpdate(
-req.user._id,
-  { $push:{postIds:post._id} },
-  {
-    new: true,
-  }
-)
+      });
+      await User.findByIdAndUpdate(
+        req.user._id,
+        { $push: { postIds: post._id } },
+        {
+          new: true,
+        }
+      );
       res.status(201).send(post);
     } catch (error) {
       console.error(error);
-      res.status(500).send({msg: "Unexpected error creating the post", error})
+      res
+        .status(500)
+        .send({ msg: "Unexpected error creating the post", error });
     }
   },
   async update(req, res) {
@@ -33,7 +35,9 @@ req.user._id,
       res.send({ message: "Post updated successfully", post });
     } catch (error) {
       console.error(error);
-      res.status(500).send({msg: "Unexpected error updating the post", error})
+      res
+        .status(500)
+        .send({ msg: "Unexpected error updating the post", error });
     }
   },
   async delete(req, res) {
@@ -42,9 +46,7 @@ req.user._id,
       res.send({ message: "Post deleted", post });
     } catch (error) {
       console.error(error);
-      res
-        .status(500)
-        .send({ message: "Unexpected error deleting the post" });
+      res.status(500).send({ message: "Unexpected error deleting the post" });
     }
   },
   async getPostsByName(req, res) {
@@ -55,7 +57,7 @@ req.user._id,
         },
       });
       if (posts.length < 1) {
-        res.status(404).send("Post not found")
+        res.status(404).send("Post not found");
       }
       res.send(posts);
     } catch (error) {
@@ -69,7 +71,7 @@ req.user._id,
     try {
       const post = await Post.findById(req.params._id);
       if (post.length < 1) {
-        res.status(404).send("Post not found")
+        res.status(404).send("Post not found");
       }
       res.send(post);
     } catch (error) {
@@ -88,8 +90,43 @@ req.user._id,
       res.send(posts);
     } catch (error) {
       console.error(error);
-      res.status(500).send({msg: "Unexpected error looking for the post", error})
+      res
+        .status(500)
+        .send({ msg: "Unexpected error looking for the posts", error });
     }
   },
+
+  async insertComment(req, res) {
+    try {
+      const post = await Post.findByIdAndUpdate(
+        req.params._id,
+        {
+          $push: {
+            comments: { comment: req.body.comment, userId: req.user._id },
+          },
+        },
+        { new: true }
+      );
+      res.send(post);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ message: "There was a problem with your comment" });
+    }
+  },
+  // async getAllWithComments(req, res) {
+  //   try {
+  //     const { page = 1, limit = 10 } = req.query;
+  //     const posts = await Post.find()
+  //       .populate("user.userId")
+  //       .limit(limit)
+  //       .skip((page - 1) * limit);
+  //     res.send(posts);
+  //   } catch (error) {
+  //     console.error(error);
+  //     res
+  //       .status(500)
+  //       .send({ msg: "Unexpected error looking for the posts", error });
+  //   }
+  // },
 };
 module.exports = PostController;

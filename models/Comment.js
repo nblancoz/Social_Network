@@ -3,9 +3,6 @@ const ObjectId = mongoose.SchemaTypes.ObjectId;
 
 const CommentSchema = new mongoose.Schema(
   {
-    title: {
-      type: String,
-    },
     body: {
       type: String,
       required: true,
@@ -13,6 +10,10 @@ const CommentSchema = new mongoose.Schema(
     userId: {
       type: ObjectId,
       ref: "User",
+    },
+    postId:{
+      type: ObjectId,
+      ref:"Post",
     },
   },
   { timestamps: true }

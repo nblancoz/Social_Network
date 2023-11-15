@@ -15,6 +15,11 @@ const PostSchema = new mongoose.Schema(
       type: ObjectId,
       ref: "User",
     },
+    commentIds:{
+      type:String,
+      ref:"Comment",
+      required: true
+    },
     datePosted: Date,
   },
   { timestamps: true }
