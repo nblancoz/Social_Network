@@ -6,13 +6,13 @@ const { jwt_secret } = require("../config/keys");
 const UserController = {
   async register(req, res, next) {
     try {
-      req.body.role = "user"
+      req.body.role = "user";
       const password = bcrypt.hashSync(req.body.password, 10);
       const user = await User.create({ ...req.body, password });
       res.status(201).send({ message: "User registered succesfully", user });
     } catch (error) {
       console.error(error);
-      next(error)
+      next(error);
     }
   },
   async login(req, res) {
@@ -65,6 +65,14 @@ const UserController = {
       res
         .status(500)
         .send({ msg: "Unexpected error deleting the user", error });
+    }
+  },
+  async getInfo(req, res) {
+    try {
+      const user = await User.findById(req.user._id)
+      res.send(user);
+    } catch (error) {
+      console.error(error);
     }
   },
 };
