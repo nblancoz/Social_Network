@@ -1,4 +1,5 @@
 const User = require("../models/User");
+const Post = require("../models/Post");
 const jwt = require("jsonwebtoken");
 const { jwt_secret } = require("../config/keys.js");
 
@@ -33,6 +34,9 @@ const isAdmin = async (req, res, next) => {
 const isAuthor = async (req, res, next) => {
   try {
     const post = await Post.findById(req.params._id);
+    if (!post || !post.userId) {
+      return res.status(404).send({ message: "Post or userId not found" });
+    }
     if (post.userId.toString() !== req.user._id.toString()) {
       return res.status(403).send({ message: "You don't own this post" });
     }
