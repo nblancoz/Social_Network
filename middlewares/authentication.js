@@ -8,17 +8,10 @@ const authentication = async (req, res, next) => {
     const token = req.headers.authorization;
     const payload = jwt.verify(token, jwt_secret);
     const user = await User.findOne({ _id: payload._id, tokens: token });
-    const postId = req.params.postId;
-    const post = await Post.findById(postId);
-
     if (!user) {
       return res.status(401).send({ message: "First you need to login" });
     }
-    if (!post) {
-      return res.status(404).send({ msg: "Post not found" });
-    }
     req.user = user;
-    req.post = post;
     next();
   } catch (error) {
     console.error(error);

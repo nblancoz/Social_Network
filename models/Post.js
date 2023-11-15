@@ -18,7 +18,6 @@ const PostSchema = new mongoose.Schema(
     commentIds:{
       type:String,
       ref:"Comment",
-      required: true
     },
     datePosted: Date,
   },
