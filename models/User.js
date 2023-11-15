@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const ObjectId = mongoose.SchemaTypes.ObjectId;
+
 const UserSchema = new mongoose.Schema(
   {
     name: {
@@ -18,10 +19,18 @@ const UserSchema = new mongoose.Schema(
     },
     role: String,
     tokens: [],
-    postIds:[ {
-      type: ObjectId,
-      ref: "Post",
-    },]
+    postIds: [
+      {
+        type: ObjectId,
+        ref: "Post",
+      },
+    ],
+    commentIds: [
+      {
+        type: ObjectId,
+        ref: "Comment",
+      },
+    ],
   },
   { timestamps: true }
 );
