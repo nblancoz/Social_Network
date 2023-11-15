@@ -69,7 +69,7 @@ const UserController = {
   },
   async getInfo(req, res) {
     try {
-      const user = await User.findById(req.user._id)
+      const user = await User.findById(req.user._id);
       res.send(user);
     } catch (error) {
       console.error(error);

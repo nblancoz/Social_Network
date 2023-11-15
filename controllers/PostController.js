@@ -85,6 +85,7 @@ const PostController = {
     try {
       const { page = 1, limit = 10 } = req.query;
       const posts = await Post.find()
+        .populate("userId")
         .limit(limit)
         .skip((page - 1) * limit);
       res.send(posts);
@@ -95,38 +96,5 @@ const PostController = {
         .send({ msg: "Unexpected error looking for the posts", error });
     }
   },
-
-  async insertComment(req, res) {
-    try {
-      const post = await Post.findByIdAndUpdate(
-        req.params._id,
-        {
-          $push: {
-            comments: { comment: req.body.comment, userId: req.user._id },
-          },
-        },
-        { new: true }
-      );
-      res.send(post);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send({ message: "There was a problem with your comment" });
-    }
-  },
-  // async getAllWithComments(req, res) {
-  //   try {
-  //     const { page = 1, limit = 10 } = req.query;
-  //     const posts = await Post.find()
-  //       .populate("user.userId")
-  //       .limit(limit)
-  //       .skip((page - 1) * limit);
-  //     res.send(posts);
-  //   } catch (error) {
-  //     console.error(error);
-  //     res
-  //       .status(500)
-  //       .send({ msg: "Unexpected error looking for the posts", error });
-  //   }
-  // },
 };
 module.exports = PostController;

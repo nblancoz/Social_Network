@@ -1,20 +1,20 @@
 const Comment = require("../models/Comment");
 const Post = require("../models/Post");
 
-
-
 const CommentController = {
   async create(req, res) {
     try {
-      const comment = await Comment.create({...req.body,
-        userId:req.user._id});
-        await Post.findByIdAndUpdate(
-          req.post._id,
-          { $push: { commentIds: comment._id } },
-          {
-            new: true,
-          }
-        );
+      const comment = await Comment.create({
+        ...req.body,
+        userId: req.user._id,
+      });
+      await Post.findByIdAndUpdate(
+        req.post._id,
+        { $push: { commentIds: comment._id } },
+        {
+          new: true,
+        }
+      );
       res.status(201).send({ msg: "Comment created successfully", comment });
     } catch (error) {
       console.error(error);
@@ -23,28 +23,6 @@ const CommentController = {
         .send({ msg: "Unexpected error creating the comment", error });
     }
   },
-// async create(req, res) {
-//   try {
-//     const comment = await Comment.create({
-//       ...req.body,
-//       userId: req.user._id,
-//       postId: req.params._id
-//     }, console.log(postId));
-
-//     await Post.findByIdAndUpdate(
-//       req.post._id,
-//       { $push: { commentIds: comment._id } },
-//       { new: true }
-//     );
-
-//     res.status(201).send({ msg: "Comment created successfully", comment });
-//   } catch (error) {
-//     console.error(error);
-//     res
-//       .status(500)
-//       .send({ msg: "Unexpected error creating the comment", error });
-//   }
-// },
   async getAll(req, res) {
     try {
       const comments = await Comment.find();
