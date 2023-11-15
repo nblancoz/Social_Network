@@ -1,69 +1,76 @@
 <h1 align="center">Social Network Project</h1>
-
-<p>In process...</p>
-
 ## Table of Contents
 1. [Introduction](#introduction)
 2. [Description](#description)
-   2.1. [Project Requirements](#project-requirements)
+    2.1 [Project Requirements](#project-requirements)
 3. [Technologies](#technologies)
-4. [Endpoints](#endpoints)
-   4.1. [Posts](#posts)
-   4.2. [Likes](#likes)
-   4.3. [Comments](#comments)
-   4.4. [Users](#users)
-5. [Production](#production)
-6. [Middleware](#middleware)
+    3.1 [Endpoints](#endpoints)
+        3.1.1 [Posts](#posts)
+        3.1.2 [Likes](#likes)
+        3.1.3 [Comments](#comments)
+        3.1.4 [Users](#users)
+4. [Installation Instructions](#installation-instructions)
 
-### Introduction <a name="introduction"></a>
+---
 
-In the backend project, the goal is to combine knowledge in Node + Express technologies along with MongoDB/Mongoose for creating a social media platform.
+### Introduction<a name="introduction"></a>
 
-### Description <a name="description"></a>
+In the backend project, we will combine knowledge in Node.js + Express and MongoDB/Mongoose technologies to develop a social media platform.
 
-After analyzing the project requirements, the student is expected to develop a REST API capable of the following:
+### Description<a name="description"></a>
 
-#### Project Requirements <a name="project-requirements"></a>
+After analyzing the project requirements, the student is expected to develop a RESTful API capable of:
+
 - User registration using Bcrypt.
 - User login with token and middleware.
-- CRUD operations.
-- Like/unlike posts.
-- Backend deployment in production.
+- Implementing CRUD operations.
+- Liking/disliking a post.
+- Making the backend available in production.
 
-### Technologies <a name="technologies"></a>
+#### Project Requirements<a name="project-requirements"></a>
 
-For API development, we will use MongoDB with Mongoose and Express. The project will be hosted on a public GitHub repository, emphasizing the use of branches and quality commits for project evolution analysis. A comprehensive README in the repository is mandatory.
+- Use Git branches; the final repository should have two branches: 'master' or 'main' and 'develop.'
+- Present an excellent README.
 
-### Endpoints <a name="endpoints"></a>
+### Technologies<a name="technologies"></a>
 
-#### Posts <a name="posts"></a>
-- Create a post (authentication required).
-- Update a post (authentication required).
-- Delete a post (authentication required).
-- Retrieve all posts with user and comments details.
-- Search posts by name.
-- Search posts by ID.
-- Implement validation for creating a post, ensuring all fields are filled (except for the optional image) and return a message if not.
-- Pagination in sets of 10.
+For API development, we will use MongoDB with Mongoose and Express. The project will be hosted on a public GitHub repository, and the presence of branches, along with well-documented commits, will be valued to analyze the project's evolution. A complete README in the repository is a mandatory requirement.
 
-#### Likes <a name="likes"></a>
-- Like a post.
-- Unlike a post.
+#### Endpoints<a name="endpoints"></a>
 
-#### Comments <a name="comments"></a>
-- Create a comment on a specific post.
+##### Posts<a name="posts"></a>
 
-#### Users <a name="users"></a>
-- Register a user using Bcrypt.
-- Login (using Bcrypt + JWT).
-- Retrieve information of the logged-in user.
-- Logout.
-- Implement validation for creating a user, ensuring all fields are filled, and return a message if not.
+- Endpoint to create a post (authentication required).
+- Endpoint to update a post (authentication required).
+- Endpoint to delete a post (authentication required).
+- Endpoint to retrieve all posts along with user information and post comments.
+- Endpoint to search for posts by name.
+- Endpoint to search for posts by ID.
+- Implement validation for post creation to ensure all fields are filled (except for the image, which is optional), returning a message if not.
+- Pagination in increments of 10.
+  
+##### Likes<a name="likes"></a>
 
-### Production <a name="production"></a>
+- Endpoint to like a post.
+- Endpoint to unlike a post.
 
-The backend should be deployed in a production environment.
+##### Comments<a name="comments"></a>
 
-### Middleware <a name="middleware"></a>
+- Endpoint to create a comment on a specific post.
 
-Implement middleware to verify the authorship of a post when editing/deleting it.
+##### Users<a name="users"></a>
+
+- Endpoint to register a user using Bcrypt.
+- Endpoint for login (using Bcrypt + JWT).
+- Endpoint to retrieve information about the logged-in user.
+- Endpoint for logout.
+- Implement validation for user creation to ensure all fields are filled, returning a message if not.
+- Middleware to check the authorship of a post when editing/deleting it.
+
+### Installation Instructions<a name="installation-instructions"></a>
+
+1. Clone the repository.
+2. Install dependencies using `npm install`.
+3. Set up MongoDB and configure connection parameters.
+4. Run the application with `npm start`.
+5. Access the API at the specified endpoints.
