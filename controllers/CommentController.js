@@ -25,7 +25,7 @@ const CommentController = {
   },
   async getAll(req, res) {
     try {
-      const comments = await Comment.find();
+      const comments = await Comment.find().populate("postId");
       res.send(comments);
     } catch (error) {
       console.error(error);

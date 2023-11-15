@@ -4,12 +4,12 @@ const jwt = require("jsonwebtoken");
 const { jwt_secret } = require("../config/keys");
 
 const UserController = {
-  async register(req, res, next) {
+  async create(req, res, next) {
     try {
       req.body.role = "user";
       const password = bcrypt.hashSync(req.body.password, 10);
       const user = await User.create({ ...req.body, password });
-      res.status(201).send({ message: "User registered succesfully", user });
+      res.status(201).send({ message: "User created succesfully", user });
     } catch (error) {
       console.error(error);
       next(error);
