@@ -32,19 +32,17 @@ const isAdmin = async (req, res, next) => {
 
 const isAuthor = async (req, res, next) => {
   try {
-    const order = await Order.findById(req.params._id);
-    if (order.userId.toString() !== req.user._id.toString()) {
-      return res.status(403).send({ message: "You don't own this order" });
+    const post = await Post.findById(req.params._id);
+    if (post.userId.toString() !== req.user._id.toString()) {
+      return res.status(403).send({ message: "You don't own this post" });
     }
     next();
   } catch (error) {
     console.error(error);
-    return res
-      .status(500)
-      .send({
-        error,
-        message: "Unexpected error comproving the authority of the order",
-      });
+    return res.status(500).send({
+      error,
+      message: "Unexpected error comproving the authority of the post",
+    });
   }
 };
 
