@@ -10,5 +10,6 @@ router.get("/getByName/:name", PostController.getPostsByName);
 router.get("/getById/:_id", PostController.getById);
 router.get('/getAll', PostController.getAll);
 router.put('/likes/:_id', authentication, PostController.like);
+router.put('/unlike/:_id', authentication, PostController.unlike);
 
 module.exports = router;
