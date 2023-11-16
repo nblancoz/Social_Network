@@ -10,7 +10,7 @@ const CommentController = {
         postId: req.params.postId,
       });
       await Post.findByIdAndUpdate(
-        req.params._id,
+        req.params.postId,
         { $push: { commentIds: comment._id } },
         {
           new: true,
