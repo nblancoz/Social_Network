@@ -26,6 +26,8 @@ const UserSchema = new mongoose.Schema(
       },
     ],
     likes: [{ type: ObjectId, ref: 'Post' }],
+    followers: [],
+    following: []
   },
   { timestamps: true }
 );

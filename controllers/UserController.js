@@ -70,10 +70,34 @@ const UserController = {
   },
   async getInfo(req, res) {
     try {
-      const user = await User.findById({_id: req.user._id}).populate("likes");
+      const user = await User.findById({ _id: req.user._id }).populate("likes");
       res.send(user);
     } catch (error) {
       console.error(error);
+    }
+  },
+  async follow(req, res) {
+    try {
+      let loggedUser = await User.findById({_id: req.user._id});
+      let userToFollow = await User.findById({_id: req.params._id});
+      if (loggedUser.following.includes(userToFollow._id)) {
+        res.status(400).send(`You're already following ${userToFollow.name}`);
+      } else {
+        loggedUser = await User.findByIdAndUpdate(
+          req.user._id,
+          { $push: { following: req.params._id } },
+          { new: true }
+        );
+        userToFollow = await User.findByIdAndUpdate(req.params._id, {
+          $push: { followers: req.user._id },
+        });
+      }
+      res.status(200).send(`Now you're following ${userToFollow.name}`);
+    } catch (error) {
+      console.error(error);
+      res
+        .status(500)
+        .send({ msg: "Unexpected error following this user", error });
     }
   },
 };
