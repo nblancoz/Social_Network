@@ -3,23 +3,24 @@ const ObjectId = mongoose.SchemaTypes.ObjectId;
 
 const PostSchema = new mongoose.Schema(
   {
-    name:{
+    name: {
       type: String,
-      required: true
+      required: true,
     },
-    body:{
+    body: {
       type: String,
-      required: true
+      required: true,
     },
     userId: {
       type: ObjectId,
       ref: "User",
     },
-    commentIds:{
-      type:String,
-      ref:"Comment",
-      required: true
-    },
+    commentIds: [
+      {
+        type: ObjectId,
+        ref: "Comment",
+      },
+    ],
     datePosted: Date,
   },
   { timestamps: true }
