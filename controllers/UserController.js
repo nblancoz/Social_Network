@@ -78,8 +78,8 @@ const UserController = {
   },
   async follow(req, res) {
     try {
-      let loggedUser = await User.findById({_id: req.user._id});
-      let userToFollow = await User.findById({_id: req.params._id});
+      let loggedUser = await User.findById({ _id: req.user._id });
+      let userToFollow = await User.findById({ _id: req.params._id });
       if (loggedUser.following.includes(userToFollow._id)) {
         res.status(400).send(`You're already following ${userToFollow.name}`);
       } else {
@@ -93,6 +93,30 @@ const UserController = {
         });
       }
       res.status(200).send(`Now you're following ${userToFollow.name}`);
+    } catch (error) {
+      console.error(error);
+      res
+        .status(500)
+        .send({ msg: "Unexpected error following this user", error });
+    }
+  },
+  async unfollow(req, res) {
+    try {
+      let loggedUser = await User.findById({ _id: req.user._id });
+      let userToUnfollow = await User.findById({ _id: req.params._id });
+      if (!loggedUser.following.includes(userToUnfollow._id)) {
+        res.status(400).send(`You're not following ${userToUnfollow.name}`);
+      } else {
+        loggedUser = await User.findByIdAndUpdate(
+          req.user._id,
+          { $pull: { following: req.params._id } },
+          { new: true }
+        );
+        userToUnfollow = await User.findByIdAndUpdate(req.params._id, {
+          $pull: { followers: req.user._id },
+        });
+      }
+      res.status(200).send(`You've unfollow ${userToUnfollow.name}`);
     } catch (error) {
       console.error(error);
       res
