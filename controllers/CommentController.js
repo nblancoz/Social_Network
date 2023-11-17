@@ -61,6 +61,32 @@ const CommentController = {
         .send({ msg: "Unexpected error updating the comment", error });
     }
   },
+  async like(req, res) {
+    try {
+      const comment = await Comment.findByIdAndUpdate(
+        req.params._id,
+        { $push: { likes: req.user._id } },
+        { new: true }
+      );
+      res.send({ msg: "Like added", comment });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ message: "There was a problem with the like" });
+    }
+  },
+  async unlike(req, res) {
+    try {
+      const comment = await Comment.findByIdAndUpdate(
+        req.params._id,
+        { $pull: { likes: req.user._id } },
+        { new: true }
+      );
+      res.send({ msg: "Like removed", comment });
+    } catch (error) {
+      console.error(error);
+      res.status(500).send({ message: "There was a problem with the like" });
+    }
+  },
 };
 
 module.exports = CommentController;
