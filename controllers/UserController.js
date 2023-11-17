@@ -126,9 +126,23 @@ const UserController = {
   },
   async searchByName(req, res) {
     try {
-      const user = await User.findOne({name: req.params.name})
+      const user = await User.findOne({ name: req.params.name });
       if (!user) {
-        return res.status(404).send(`User ${req.params.name} not found`)
+        return res.status(404).send(`User ${req.params.name} not found`);
+      }
+      res.send(user);
+    } catch (error) {
+      console.error(error);
+      res
+        .status(500)
+        .send({ msg: "Unexpected error looking for this user", error });
+    }
+  },
+  async searchById(req, res) {
+    try {
+      const user = await User.findById(req.params._id)
+      if (!user) {
+        return res.status(404).send("User with this id not found")
       }
       res.send(user)
     } catch (error) {
