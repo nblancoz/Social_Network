@@ -44,6 +44,23 @@ const CommentController = {
       res.status(500).send({ msg: "Unexpected error deleting the comment" });
     }
   },
+  async update(req, res) {
+    try {
+      const comment = await Comment.findByIdAndUpdate(
+        req.params._id,
+        { ...req.body },
+        {
+          new: true,
+        }
+      );
+      res.send({ msg: "Comment updated succesfully", comment }); // ERROR
+    } catch (error) {
+      console.error(error);
+      res
+        .status(500)
+        .send({ msg: "Unexpected error updating the comment", error });
+    }
+  },
 };
 
 module.exports = CommentController;
