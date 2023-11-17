@@ -11,5 +11,6 @@ router.delete("/deleteById/:_id", authentication, isAdmin, UserController.delete
 router.get("/getInfo", authentication, UserController.getInfo)
 router.put("/follow/:_id", authentication, UserController.follow)
 router.put("/unfollow/:_id", authentication, UserController.unfollow)
+router.get("/searchByName/:name", UserController.searchByName)
 
 module.exports = router;

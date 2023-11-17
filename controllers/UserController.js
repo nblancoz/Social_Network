@@ -124,6 +124,18 @@ const UserController = {
         .send({ msg: "Unexpected error following this user", error });
     }
   },
+  async searchByName(req, res) {
+    try {
+      const user = await User.findOne({name: req.params.name})
+      if (!user) {
+        return res.status(404).send(`User ${req.params.name} not found`)
+      }
+      res.send(user)
+    } catch (error) {
+      console.error(error)
+      res.status(500).send({msg: "Unexpected error looking for this user", error})
+    }
+  }
 };
 
 module.exports = UserController;
