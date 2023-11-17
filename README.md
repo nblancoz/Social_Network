@@ -35,7 +35,7 @@ After analyzing the project requirements, the student is expected to develop a R
 
 ### Technologies<a name="technologies"></a>
 
-For API development, we will use MongoDB with Mongoose and Express. The project will be hosted on a public GitHub repository, and the presence of branches, along with well-documented commits, will be valued to analyze the project's evolution. A complete README in the repository is a mandatory requirement.
+For API development, we will use MongoDB with Mongoose and Express. The project will be hosted on a public GitHub repository, and the presence of branches, along with well-documented commits, will be valued to analyze the project's evolution.
 
 #### Endpoints<a name="endpoints"></a>
 
