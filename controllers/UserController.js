@@ -3,7 +3,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const jwt_secret = process.env.JWT_SECRET;
-const transporter = require("../config/nodemailer")
+const transporter = require("../config/nodemailer");
 
 const UserController = {
   async create(req, res, next) {
@@ -34,8 +34,8 @@ const UserController = {
   },
   async confirm(req, res) {
     try {
-      const token = req.params.emailToken
-      const payload = jwt.verify(token.jwt_secret)
+      const token = req.params.emailToken;
+      const payload = jwt.verify(token.jwt_secret);
       const confirmedUser = await User.findOneAndUpdate(
         { email: payload.email },
         { verified: true },
@@ -46,7 +46,10 @@ const UserController = {
       console.error(error);
       res
         .status(500)
-        .send({ msg: " Unexpected error sending the verification email", error });
+        .send({
+          msg: " Unexpected error sending the verification email",
+          error,
+        });
     }
   },
   async login(req, res) {
@@ -57,6 +60,9 @@ const UserController = {
       const token = jwt.sign({ _id: user._id }, jwt_secret);
       if (user.tokens.length > 4) user.tokens.shift();
       user.tokens.push(token);
+      // if (!user.verified) {
+      //   return res.status(400).send({ message: "You need to verify your email first" });
+      // }
       await user.save();
       res.send({ message: "Welcome " + user.name, token });
     } catch (error) {
