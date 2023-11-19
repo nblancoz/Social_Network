@@ -70,7 +70,11 @@ const UserController = {
   },
   async getInfo(req, res) {
     try {
-      const user = await User.findById({ _id: req.user._id }).populate("likes");
+      const user = await User.findById({ _id: req.user._id }).populate("likes").populate("postIds");
+      const followersCount = user.followers.length
+      const followingCount = user.following.length
+      user.followers.push(followersCount)
+      user.following.push(followingCount)
       res.send(user);
     } catch (error) {
       console.error(error);
