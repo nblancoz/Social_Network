@@ -75,3 +75,24 @@ For API development, we will use MongoDB with Mongoose and Express. The project 
 3. Set up MongoDB and configure connection parameters.
 4. Run the application with `npm start`.
 5. Access the API at the specified endpoints.
+
+### Documentation
+
+Here you can view the documentation of this project: https://documenter.getpostman.com/view/30764412/2s9Ye8gavg
+
+### Licences
+
+This project is under licence of Luciana Boasso & Nicolás Blanco
+
+### Contact
+<p display="flex" align="center" justify-content="center">
+ Nicolás Blanco Zappalá
+<a href = "nblancozappala@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+    <a href="https://www.linkedin.com/in/nblancoz" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
+</p>
+
+<p display="flex" align="center" justify-content="center">
+ Luciana Boasso
+<a href = "luboasso16@gmail.com"><img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" target="_blank"></a>
+    <a href="https://www.linkedin.com/in/luboasso" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
+</p>
